@@ -1,0 +1,14 @@
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\bin\Debug\net8.0\ConsoleMandelbrot.exe
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\bin\Debug\net8.0\ConsoleMandelbrot.deps.json
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\bin\Debug\net8.0\ConsoleMandelbrot.runtimeconfig.json
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\bin\Debug\net8.0\ConsoleMandelbrot.dll
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\bin\Debug\net8.0\ConsoleMandelbrot.pdb
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.AssemblyInfoInputs.cache
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.AssemblyInfo.cs
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.csproj.CoreCompileInputs.cache
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.dll
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\refint\ConsoleMandelbrot.dll
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.pdb
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ConsoleMandelbrot.genruntimeconfig.cache
+C:\Users\1092023\Desktop\C#\Эксперименты\ConsoleMandelbrot\ConsoleMandelbrot\obj\Debug\net8.0\ref\ConsoleMandelbrot.dll
