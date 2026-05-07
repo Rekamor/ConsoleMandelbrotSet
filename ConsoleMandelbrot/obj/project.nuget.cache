@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "NRX5I7kfBHU=",
+  "dgSpecHash": "ebohIO7a90I=",
   "success": true,
   "projectFilePath": "/home/rek/RiderProjects/ConsoleMandelbrotSet/ConsoleMandelbrot/ConsoleMandelbrot.csproj",
   "expectedPackageFiles": [
-    "/home/rek/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
-    "/home/rek/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512",
-    "/home/rek/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.22/microsoft.netcore.app.host.linux-x64.8.0.22.nupkg.sha512"
+    "/home/rek/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.25/microsoft.netcore.app.host.linux-x64.8.0.25.nupkg.sha512"
   ],
   "logs": []
 }

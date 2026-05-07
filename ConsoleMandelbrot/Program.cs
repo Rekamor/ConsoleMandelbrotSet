@@ -1,155 +1,162 @@
-﻿class Program
+﻿namespace ConsoleMandelbrot;
+
+class Program
 {
     static void Main()
     {
-        Console.WriteLine("Enter any key or \'j\' for Julia Set");
-        bool mod = Console.ReadKey().KeyChar != 'j';
-        Complex b =  new Complex(0);
         string gradient = " .:!/r(l1Z4H9W8$@";
-        int width = 250;
-        int height = 50;
-        double charSideCof = 3.4;
-        double scale = 100;
-        Complex c = new Complex(0);
-        int pow = 2;
+        Console.WriteLine("1 - Mandelbrot Set\n2 - The burning ship\n3 - 3n+1");
+        
+        int mod = int.Parse(Console.ReadLine());
+        
+        int colorMod = 1;
+        int step = 1;
+        
         int iterations = 100;
+        int pow = 2;
+        
+        Console.CursorVisible = false;
+        int width = Console.WindowWidth/2-1;
+        int height = Console.WindowHeight/2;
+        double zoom = (double)width / 2;
+        double charSideCof = 3.4;
+        
+        Complex c = new Complex(0);
+        Complex a = new Complex(0);
+        
         while (true)
         {
             for (int y = height; y >= -height; y--)
             {
+                Console.SetCursorPosition(0, height - y);
                 for (int x = -width; x <= width; x++)
                 {
-                    Complex a = new Complex(x / scale, y  * charSideCof / scale) + c;
-                    int color = CalcColor(a, iterations, pow, mod, b); 
-                    if (color == 0) Console.Write(' ');
-                    else Console.Write(gradient[color * 7 % (gradient.Length - 1) + 1]);
+                    Complex z = new Complex(x / zoom, y  * charSideCof / zoom) + c;
+                    int color = CalcColor(z, a, pow, mod, iterations, step); 
+                    if (color == iterations) Console.Write(' ');
+                    else Console.Write(gradient[(iterations - color) * colorMod % (gradient.Length - 1) + 1]);
                 }
-
-                Console.WriteLine();
             }
-
-            var k = Console.ReadKey().KeyChar;
-            switch (k)
+            
+            switch (Console.ReadKey().Key)
             {
-                case 'w':
-                    c.imaginary += 50 / scale;
+                case ConsoleKey.UpArrow:
+                    c.Imaginary += 25 / zoom;
                     break;
-                case 's':
-                    c.imaginary -= 50 / scale;
+                case ConsoleKey.DownArrow:
+                    c.Imaginary -= 25 / zoom;
                     break;
-                case 'd':
-                    c.real += 50 / scale;
+                case ConsoleKey.RightArrow:
+                    c.Real += 25 / zoom;
                     break;
-                case 'a':
-                    c.real -= 50 / scale;
+                case ConsoleKey.LeftArrow:
+                    c.Real -= 25 / zoom;
                     break;
-                case 'z':
-                    scale *= 1.5;
+                case ConsoleKey.Z:
+                    zoom *= 1.5;
                     break;
-                case 'x':
-                    scale /= 1.5;
+                case ConsoleKey.X:
+                    zoom /= 1.5;
                     break;
-                case 'c':
-                    Console.WriteLine("c.real: " + c.real);
-                    Console.WriteLine("c.imaginary: " + c.imaginary);
-                    Console.WriteLine("Scale: " + scale);
+                case ConsoleKey.R:
+                    int w = width;
+                    width = Console.WindowWidth/2 - 1;
+                    height = Console.WindowHeight/2;
+                    zoom *= (double)width / w;
+                    break;
+                case ConsoleKey.C:
+                    Console.WriteLine("\nc.real: " + c.Real);
+                    Console.WriteLine("c.imaginary: " + c.Imaginary);
+                    Console.WriteLine("Scale: " + zoom);
                     Console.ReadKey();
                     break;
-                case 'v':
+                case ConsoleKey.V:
                     Console.WriteLine("\nReal:");
-                    c.real = double.Parse(Console.ReadLine());
+                    c.Real = double.Parse(Console.ReadLine());
                     Console.WriteLine("Imaginary:");
-                    c.imaginary = double.Parse(Console.ReadLine());
-                    Console.WriteLine("Scale:");
-                    scale = double.Parse(Console.ReadLine());
+                    c.Imaginary = double.Parse(Console.ReadLine());
+                    Console.WriteLine("Zoom:");
+                    zoom = double.Parse(Console.ReadLine());
                     break;
-                case 'i':
+                case ConsoleKey.A:
+                    Console.WriteLine("\nReal:");
+                    a.Real = double.Parse(Console.ReadLine());
+                    Console.WriteLine("Imaginary:");
+                    a.Imaginary = double.Parse(Console.ReadLine());
+                    break;
+                case ConsoleKey.I:
                     Console.WriteLine("\nIterations: " + iterations);
                     iterations = int.Parse(Console.ReadLine());
                     break;
-                case 'p':
+                case ConsoleKey.S:
+                    Console.WriteLine("\nSteps: " + step);
+                    step = int.Parse(Console.ReadLine());
+                    break;
+                case ConsoleKey.G:
+                    Console.WriteLine("\nColorMod: " + colorMod);
+                    colorMod = int.Parse(Console.ReadLine());
+                    break;
+                case ConsoleKey.P:
                     Console.WriteLine("\nPow: " + pow);
                     pow = int.Parse(Console.ReadLine());
                     break;
-                case 'm':
+                case ConsoleKey.M:
                     Console.WriteLine("\nMandelbrot?: " + mod);
-                    mod = bool.Parse(Console.ReadLine());
-                    break;
-                case 'b':
-                    if (!mod)
-                    {
-                        Console.WriteLine("\nb.real: " + b.real);
-                        b.real = double.Parse(Console.ReadLine());
-                        Console.WriteLine("\nb.imaginary: " + b.imaginary);
-                        b.imaginary = double.Parse(Console.ReadLine());
-                    }
-                    else Console.WriteLine("Unknown command");
+                    mod = int.Parse(Console.ReadLine());
                     break;
                 default:
                     Console.WriteLine("Unknown command");
+                    Console.Beep();
                     break;
             }
         }
     }
 
-    static int CalcColor(Complex x, int iterations, int pow = 2, bool mod = true, Complex b = null)
+    static int CalcColor(Complex xZero, Complex a, int pow, int mod, int iterations, int step = 1)
     {
-        Complex xZero = x;
+        Complex x = xZero;
         for (int i = 0; i < iterations; i++)
         {
-            if (x.Length() >= 2) return iterations - i;
-            x = Complex.Pow(x, pow);
-            if (mod)  x += xZero;
-            else x += b;
+            bool exit = false;
+            for (int j = 0; j < step; j++)
+            {
+                exit = Fuction(ref x, xZero, a, pow, mod);
+            }
+            if (exit) return i;
         }
-        return 0;
-    }
-}
-
-class Complex
-{
-    public Complex(double x, double y = 0)
-    {
-        real = x;
-        imaginary = y;
-    }
-    public double real { get; set; }
-    public double imaginary { get; set; }
-
-    public double Length()
-    {
-        return Math.Sqrt(Math.Pow(real, 2) + Math.Pow(imaginary, 2));
+        return iterations;
     }
 
-    public Complex Square()
+    static bool Fuction(ref Complex x, Complex xZero, Complex a, int pow, int mod)
     {
-        return new Complex((real + imaginary) * (real - imaginary), 2 * real * imaginary);
-    }
-    
-    public static Complex Pow(Complex x, int pow)
-    {
-        Complex result = new Complex(1);
-        for (int i = 0; i < pow; i++) result *= x;
-        return result;
-    }
-
-    public static Complex operator + (Complex a, Complex b)
-    {
-        return new Complex(a.real + b.real, a.imaginary + b.imaginary);
-    }
-    
-    public static Complex operator - (Complex a, Complex b)
-    {
-        return new Complex(a.real - b.real, a.imaginary - b.imaginary);
-    }
-    
-    public static Complex operator * (Complex a, Complex b)
-    {
-        return new Complex(a.real * b.real - a.imaginary * b.imaginary, a.imaginary * b.real + a.real * b.imaginary);
-    }
-
-    public override string ToString()
-    {
-        return "(" + real + ", " + imaginary + ")";
+        bool exit = false;
+        switch (mod)
+        {
+            case 0:
+                x = Complex.Pow(x, pow);
+                x += a;
+                exit = x.Length() > 2;
+                break;
+            case 1:
+                x = Complex.Pow(x, pow);
+                x += xZero;
+                exit = x.Length() > 2;
+                break;
+            case 2:
+                x = Complex.Pow(new Complex(Math.Abs(x.Real), -Math.Abs(x.Imaginary)), pow);
+                x += xZero;
+                exit = x.Length() > 2;
+                break;
+            case 3:
+                x = x * 7 + a - Complex.Pow(Complex.Cos(x * Math.PI), pow) * (x * 5 + new Complex(2));
+                x /= 4;
+                exit = x.Length() >= 100000000;
+                break;
+            case 4:
+                x = Complex.Cos(x) * Complex.Cos(xZero);
+                exit = x.Length() > 10;
+                break;
+        }
+        return exit;
     }
 }
