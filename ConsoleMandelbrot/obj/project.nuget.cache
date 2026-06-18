@@ -1,10 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "ebohIO7a90I=",
+  "dgSpecHash": "3ReYQOIP7qk=",
   "success": true,
   "projectFilePath": "/home/rek/RiderProjects/ConsoleMandelbrotSet/ConsoleMandelbrot/ConsoleMandelbrot.csproj",
   "expectedPackageFiles": [
-    "/home/rek/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.25/microsoft.netcore.app.host.linux-x64.8.0.25.nupkg.sha512"
+    "/home/rek/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.27/microsoft.netcore.app.host.linux-x64.8.0.27.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Произошла ошибка при получении данных уязвимости пакета: Не удалось загрузить индекс служб для источника https://api.nuget.org/v3/index.json.",
+      "projectPath": "/home/rek/RiderProjects/ConsoleMandelbrotSet/ConsoleMandelbrot/ConsoleMandelbrot.csproj",
+      "warningLevel": 1,
+      "filePath": "/home/rek/RiderProjects/ConsoleMandelbrotSet/ConsoleMandelbrot/ConsoleMandelbrot.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

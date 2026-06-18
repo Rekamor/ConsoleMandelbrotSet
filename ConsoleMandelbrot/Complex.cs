@@ -2,10 +2,10 @@ namespace ConsoleMandelbrot;
 
 public class Complex
 {
-    public Complex(double x, double y = 0)
+    public Complex(double real, double imaginary = 0)
     {
-        Real = x;
-        Imaginary = y;
+        Real = real;
+        Imaginary = imaginary;
     }
     public double Real { get; set; }
     public double Imaginary { get; set; }

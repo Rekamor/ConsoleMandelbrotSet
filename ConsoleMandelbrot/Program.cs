@@ -4,8 +4,9 @@ class Program
 {
     static void Main()
     {
-        string gradient = " .:!/r(l1Z4H9W8$@";
-        Console.WriteLine("1 - Mandelbrot Set\n2 - The burning ship\n3 - 3n+1");
+        string gradient = " .:!r/(l1Z4H9W8$@";
+        Console.WriteLine(gradient);
+        Console.WriteLine("0 - Julia set\n1 - Mandelbrot set\n2 - The burning ship\n3 - 3n+1");
         
         int mod = int.Parse(Console.ReadLine());
         
@@ -19,19 +20,21 @@ class Program
         int width = Console.WindowWidth/2-1;
         int height = Console.WindowHeight/2;
         double zoom = (double)width / 2;
-        double charSideCof = 3.4;
+        double charsSideRatio = (double)width / height / 16 * 9;
         
         Complex c = new Complex(0);
         Complex a = new Complex(0);
+
+        bool working = true;
         
-        while (true)
+        while (working)
         {
             for (int y = height; y >= -height; y--)
             {
                 Console.SetCursorPosition(0, height - y);
                 for (int x = -width; x <= width; x++)
                 {
-                    Complex z = new Complex(x / zoom, y  * charSideCof / zoom) + c;
+                    Complex z = new Complex(x / zoom, y  * charsSideRatio / zoom) + c;
                     int color = CalcColor(z, a, pow, mod, iterations, step); 
                     if (color == iterations) Console.Write(' ');
                     else Console.Write(gradient[(iterations - color) * colorMod % (gradient.Length - 1) + 1]);
@@ -41,16 +44,16 @@ class Program
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.UpArrow:
-                    c.Imaginary += 25 / zoom;
+                    c.Imaginary += 0.1 / zoom * width;
                     break;
                 case ConsoleKey.DownArrow:
-                    c.Imaginary -= 25 / zoom;
+                    c.Imaginary -= 0.1 / zoom * width;
                     break;
                 case ConsoleKey.RightArrow:
-                    c.Real += 25 / zoom;
+                    c.Real += 0.1 / zoom * width;
                     break;
                 case ConsoleKey.LeftArrow:
-                    c.Real -= 25 / zoom;
+                    c.Real -= 0.1 / zoom * width;
                     break;
                 case ConsoleKey.Z:
                     zoom *= 1.5;
@@ -63,11 +66,12 @@ class Program
                     width = Console.WindowWidth/2 - 1;
                     height = Console.WindowHeight/2;
                     zoom *= (double)width / w;
+                    charsSideRatio = (double)width / height / 16 * 9;
                     break;
                 case ConsoleKey.C:
                     Console.WriteLine("\nc.real: " + c.Real);
                     Console.WriteLine("c.imaginary: " + c.Imaginary);
-                    Console.WriteLine("Scale: " + zoom);
+                    Console.WriteLine("Zoom: " + zoom);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.V:
@@ -104,6 +108,17 @@ class Program
                     Console.WriteLine("\nMandelbrot?: " + mod);
                     mod = int.Parse(Console.ReadLine());
                     break;
+                case ConsoleKey.K:
+                    Console.WriteLine("\nChar side ratio: " + charsSideRatio);
+                    Console.WriteLine("\nScreen width: " + width);
+                    Console.WriteLine("\nScreen height: " + height);
+                    charsSideRatio = double.Parse(Console.ReadLine());
+                    break;
+                case ConsoleKey.Q:
+                    Console.CursorVisible = false;
+                    Console.Clear();
+                    working = false;
+                    break;
                 default:
                     Console.WriteLine("Unknown command");
                     Console.Beep();
@@ -118,7 +133,7 @@ class Program
         for (int i = 0; i < iterations; i++)
         {
             bool exit = false;
-            for (int j = 0; j < step; j++)
+            for (int j = 0; j < step && !exit; j++)
             {
                 exit = Fuction(ref x, xZero, a, pow, mod);
             }
@@ -155,6 +170,15 @@ class Program
             case 4:
                 x = Complex.Cos(x) * Complex.Cos(xZero);
                 exit = x.Length() > 10;
+                break;
+            case 5:
+                x = new Complex(0);
+                for (int i = 2; i < pow; i++)
+                {
+                    x += Complex.Pow(x,i);
+                }
+                x += xZero;
+                exit = x.Length() > 2;
                 break;
         }
         return exit;
